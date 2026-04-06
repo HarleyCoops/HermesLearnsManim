@@ -1,0 +1,8 @@
+mcp_servers:
+  hermes_learns_manim:
+    command: python
+    args:
+      - -m
+      - hermes_learns_manim.cli
+      - serve-mcp
+    cwd: /absolute/path/to/HermesLearnsManim
