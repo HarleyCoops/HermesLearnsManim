@@ -171,6 +171,7 @@ class ManimRunManager:
             "knowledge_tree.json": "knowledge_tree",
             "narrative.md": "narrative",
             "scene.py": "scene_code",
+            "validation.json": "validation",
         }
         if name in mapping:
             status[mapping[name]] = "complete"

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from importlib.resources import files
 from pathlib import Path
 
 from .config import PipelineSettings
@@ -69,5 +70,8 @@ def render_scene(run_dir: str, scene_name: str, quality: str = "l") -> dict:
 
 @mcp.tool()
 def source_pipeline_review() -> str:
-    review_path = Path(__file__).resolve().parents[2] / "docs" / "source-pipeline-review.md"
+    review_path = files("hermes_learns_manim").joinpath(
+        "resources",
+        "source-pipeline-review.md",
+    )
     return review_path.read_text(encoding="utf-8")
