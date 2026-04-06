@@ -4,44 +4,45 @@
 
 The old repository proved the pedagogical idea: take a user concept, recursively unpack the prerequisites, enrich the math, design the visuals, then synthesize Manim code. The problem was the harness. The codebase drifted into three parallel SDK stacks with duplicated prompts, incomplete orchestrators, and inconsistent tool boundaries.
 
-This repo resets the foundation around one runtime:
+This repo now takes a stricter approach:
 
-- OpenAI Agents SDK for typed stage agents, tool-calling, sessions, and tracing
-- Manager-style orchestration in Python for deterministic recursive traversal
-- Hermes-ready MCP exposure so Hermes can call the pipeline remotely
-- A single artifact layout for prompts, trees, code, and renders
+- Hermes is the only agent harness.
+- Hermes handles model login, provider selection, and subagent orchestration.
+- This repo provides universal scaffolding, deterministic tools, artifact schemas, and render hooks.
+- The integration boundary is MCP so Hermes can use the scaffold locally or remotely.
 
-## Why this protocol
+## What lives here
+
+This repository is not another agent framework. It is a Hermes-first workspace package that ships:
+
+- a local MCP server for run initialization, artifact saving, validation, and rendering
+- a Hermes skill pack that teaches Hermes how to execute the reverse-knowledge-tree workflow with subagents
+- stable file formats for analysis, knowledge trees, narrative plans, and generated Manim code
+- deterministic validators for LaTeX and Manim
+
+## Why Hermes-only
 
 The current `Math-To-Manim` repo mixes:
 
-- Anthropic-oriented linear orchestration in `src/agents/orchestrator.py`
-- A second partial Claude SDK rewrite in `src/agents/agent_orchestrator.py`
-- A Gemini chain in `Gemini3/src/pipeline.py`
-- A Kimi swarm with better structured tool-calling in `KimiK2.5Swarm/`
+- Anthropic-oriented orchestration in `src/agents/orchestrator.py`
+- a second partial Claude SDK rewrite in `src/agents/agent_orchestrator.py`
+- a Gemini chain in `Gemini3/src/pipeline.py`
+- a Kimi swarm in `KimiK2.5Swarm/`
 
-This repo keeps the stage semantics and drops the framework fragmentation.
+That fragmentation is the main technical problem.
 
-The protocol choice here is:
+This repo removes it by treating Hermes as the single control plane. The reasoning model can be OpenAI, Kimi, Nous, OpenRouter, or another provider, but Hermes owns the agent loop.
 
-1. Use OpenAI Agents SDK specialist agents with structured outputs.
-2. Keep the recursive control flow in Python, not in freeform handoffs.
-3. Give the code generation stage local validators as tools.
-4. Expose the final pipeline to Hermes through MCP, because Hermes already speaks MCP cleanly.
+## Workflow
 
-That gives better tool discipline and easier reasoning about failure modes than another model-specific swarm.
+1. Hermes receives a math-animation request.
+2. Hermes calls the MCP tool `initialize_run_workspace`.
+3. Hermes uses its own subagent routine to recreate the reasoning tree and downstream artifacts.
+4. Hermes saves intermediate artifacts back through MCP tools.
+5. Hermes validates the generated Manim code.
+6. Hermes optionally renders to MP4.
 
-## Pipeline
-
-The pipeline remains the same conceptually:
-
-1. Analyze the user request into a target concept, domain, audience, and goal.
-2. Build a reverse knowledge tree by recursively asking what must be understood first.
-3. Enrich each node with equations, definitions, examples, and interpretation.
-4. Design visuals for each node with continuity-aware transitions.
-5. Compose a scene outline for the full animation.
-6. Generate Manim code.
-7. Validate the code locally and optionally render to MP4.
+The scaffold stays universal because the reasoning model is configured in Hermes, not hardcoded here.
 
 ## Quickstart
 
@@ -51,40 +52,34 @@ cd HermesLearnsManim
 python -m venv .venv
 . .venv/bin/activate
 pip install -e ".[dev]"
-cp .env.example .env
 ```
 
-Set `OPENAI_API_KEY` in `.env`, then run:
-
-```bash
-hermes-learns-manim run "Explain the Fourier transform as a story from waves to spectra"
-```
-
-To generate and render:
-
-```bash
-hermes-learns-manim run "Visualize special relativity from inertial frames to time dilation" --render
-```
-
-Artifacts are written under `runs/<concept>-<timestamp>/`.
-
-## Hermes integration
-
-Hermes has two natural integration points:
-
-- As an MCP server: Hermes calls the generator as a tool.
-- As a skill: Hermes learns when to route math-animation requests into the MCP tool or CLI.
-
-This repo ships both:
-
-- `src/hermes_learns_manim/mcp_server.py`
-- `hermes/skills/hermes-learns-manim/SKILL.md`
-
-Example MCP launch:
+Start the MCP server:
 
 ```bash
 python -m hermes_learns_manim.cli serve-mcp
 ```
+
+Then point Hermes at it with the config snippet in:
+
+- `hermes/skills/hermes-learns-manim/references/mcp-config.yaml`
+
+Model login happens in Hermes, not in this repo:
+
+```bash
+hermes setup
+hermes model
+```
+
+## Hermes integration
+
+This repo ships both of the pieces Hermes needs:
+
+- `src/hermes_learns_manim/mcp_server.py`
+- `hermes/skills/hermes-learns-manim/SKILL.md`
+
+The skill defines the multi-agent routine.
+The MCP server gives Hermes the deterministic tools it needs.
 
 ## Repo review
 
@@ -92,4 +87,4 @@ The legacy repo review that drove this refactor lives in:
 
 - `docs/source-pipeline-review.md`
 
-It documents what was reusable, what was dead weight, and why manager orchestration plus MCP is the right replacement boundary.
+It documents what was reusable, what was dead weight, and why Hermes plus MCP is the right replacement boundary.
