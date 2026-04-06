@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "hermes-learns-manim"
 version = "0.1.0"
-description = "A Hermes-ready OpenAI Agents SDK pipeline for generating Manim animations from recursive concept decomposition."
+description = "Hermes-first MCP scaffolding for generating Manim animations from recursive concept decomposition."
 readme = "README.md"
 requires-python = ">=3.11"
 license = { text = "MIT" }
@@ -13,7 +13,6 @@ authors = [
   { name = "Harley Coops" }
 ]
 dependencies = [
-  "openai-agents>=0.3.0",
   "manim>=0.19.0",
   "mcp>=1.13.0",
   "pydantic>=2.8.0",
