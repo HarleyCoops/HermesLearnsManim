@@ -1,4 +1,4 @@
 from .config import PipelineSettings
-from .pipeline import MathToManimPipeline
+from .pipeline import ManimRunManager, RunWorkspace
 
-__all__ = ["MathToManimPipeline", "PipelineSettings"]
+__all__ = ["ManimRunManager", "PipelineSettings", "RunWorkspace"]
