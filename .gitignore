@@ -13,3 +13,6 @@ build/
 *.egg-info/
 session.db
 openai-agent-sessions.db
+
+# Manim incremental segments (rebuilt on each render; do not commit)
+**/partial_movie_files/
