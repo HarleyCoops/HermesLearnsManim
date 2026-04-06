@@ -30,44 +30,13 @@ There are three real orchestration families, not one:
 
 Primary file: `src/agents/orchestrator.py`
 
-This is the most complete implementation. It coordinates:
-
-1. concept analysis
-2. prerequisite exploration
-3. mathematical enrichment
-4. visual design
-5. narrative composition
-6. Manim code generation
-
-Strengths:
-
-- Clear stage boundaries
-- Reusable `KnowledgeNode`
-- Good prompt decomposition
-- Local artifact saving
-
-Weaknesses:
-
-- Anthropic-specific wiring
-- Mostly plain-text parsing
-- Validation and rendering are loosely coupled
-- No stable remote integration boundary
+This is the most complete implementation. It coordinates concept analysis, prerequisite exploration, mathematical enrichment, visual design, narrative composition, and Manim code generation.
 
 ### 2. Partial Claude SDK rewrite
 
 Primary file: `src/agents/agent_orchestrator.py`
 
-This attempted to move into a tool-enabled Claude agent runtime. It stopped halfway. Stages 3 through 6 are explicitly `TODO`.
-
-Strengths:
-
-- The direction was correct: stateful orchestration, MCP-style tools, video review
-
-Weaknesses:
-
-- Incomplete
-- Competes with the linear orchestrator
-- Adds another runtime abstraction without replacing the older one
+This attempted to move into a tool-enabled Claude runtime. It stopped halfway. Stages 3 through 6 are explicitly `TODO`.
 
 ### 3. Gemini and Kimi variants
 
@@ -78,18 +47,6 @@ Primary files:
 - `KimiK2.5Swarm/agents/enrichment_chain.py`
 
 Gemini is a simple chained pipeline. Kimi is the most ambitious in terms of structured tool-calling and parallel enrichment.
-
-Strengths:
-
-- Kimi uses structured tool payloads instead of plain text parsing
-- Kimi swarm shows the right instinct around parallel enrichment
-- Gemini pipeline preserves the same pedagogical stages
-
-Weaknesses:
-
-- Each stack duplicates prompts and data flow
-- Each stack has its own client model assumptions
-- The repo drifted into model demos instead of one product boundary
 
 ## Reusable assets worth keeping
 
@@ -109,20 +66,21 @@ Weaknesses:
 
 ## Chosen replacement architecture
 
-This repo replaces the harness with:
+This repo now uses Hermes as the only agent harness.
 
-1. OpenAI Agents SDK specialist agents using structured outputs.
-2. Python manager orchestration for recursive tree traversal.
-3. Local function tools for validation and caching.
-4. Stage-specific sessions for memory where it helps and isolation where it matters.
-5. An MCP server as the Hermes integration boundary.
+The replacement boundary is:
 
-## Why manager orchestration instead of free handoffs
+1. Hermes skill instructions for orchestration.
+2. A repo-local MCP server for deterministic operations.
+3. Provider-agnostic model selection handled by Hermes itself.
+4. Shared artifact formats for analysis, tree construction, narrative planning, code generation, validation, and rendering.
 
-The recursive prerequisite tree is a graph-building problem with cycle control, depth limits, deduplication, and deterministic artifact output. That is better handled by Python code than by letting an LLM own the entire control plane.
+## Why this is the right split
 
-The LLM should reason inside each stage.
-The application should own recursion, persistence, validation, and render execution.
+The recursive prerequisite tree is a graph-building problem with cycle control, depth limits, deduplication, and deterministic artifact output. Hermes is a better place to own the agent loop than yet another embedded SDK inside this repo.
+
+This repository should not pick the reasoning provider.
+It should give Hermes the workspace, tools, templates, and render pipeline.
 
 ## Result
 
