@@ -4,6 +4,9 @@
 <p align="center">
   <img src="assets/GeodesicEquation.gif" alt="Geodesic equation — sample Manim render" width="100%">
 </p>
+<p align="center">
+  <img src="assets/BrownianToBlackScholes.gif" alt="Brownian motion to Black–Scholes — sample Manim render" width="100%">
+</p>
 
 # HermesLearnsManim
 
