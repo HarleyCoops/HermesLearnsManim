@@ -1,6 +1,9 @@
 <p align="center">
   <img src="assets/Hero2.png" alt="Hermes Learns Manim" width="100%">
 </p>
+<p align="center">
+  <img src="assets/GeodesicEquation.gif" alt="Geodesic equation — sample Manim render" width="100%">
+</p>
 
 # HermesLearnsManim
 
