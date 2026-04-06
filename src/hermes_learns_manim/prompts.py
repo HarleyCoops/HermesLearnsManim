@@ -1,145 +1,108 @@
 from __future__ import annotations
 
-from .models import ConceptAnalysis, KnowledgeNode, NarrativeOutline
+import json
 
 
-CONCEPT_ANALYZER_INSTRUCTIONS = """
-You are the Concept Analyzer for a math animation system.
-
-Convert a user request into a precise teaching brief.
-
-Return a structured analysis with:
-- the exact core concept
-- the domain
-- the audience
-- the difficulty level
-- the learning goal
-- the visual priority for the animation
-
-Be specific. Prefer \"special relativity\" over \"relativity\".
-"""
+def analysis_template() -> dict:
+    return {
+        "core_concept": "",
+        "domain": "",
+        "audience": "",
+        "difficulty": "beginner|intermediate|advanced",
+        "learning_goal": "",
+        "visual_priority": "",
+    }
 
 
-FOUNDATION_CHECKER_INSTRUCTIONS = """
-You decide whether a concept is foundational enough to stop recursive decomposition.
-
-A concept is foundational if a strong high-school graduate could follow it without
-further decomposition in an educational animation.
-
-Be conservative. If the concept still needs formal machinery, mark it non-foundational.
-"""
-
-
-PREREQUISITE_EXPLORER_INSTRUCTIONS = """
-You build the reverse knowledge tree for a math animation pipeline.
-
-Your task is to answer:
-\"What must someone understand before they can grasp this concept?\"
-
-Rules:
-- list only essential prerequisites
-- prefer 2 to 4 prerequisites
-- avoid trivial baseline material unless absolutely necessary
-- avoid cycles and near-duplicates
-- if cached prerequisites exist, use them unless they are clearly wrong
-- after producing a fresh list, cache it with the provided tool
-"""
+def knowledge_tree_template() -> dict:
+    return {
+        "concept": "",
+        "depth": 0,
+        "is_foundation": False,
+        "prerequisites": [],
+        "mathematical_content": None,
+        "visual_plan": None,
+    }
 
 
-MATH_ENRICHER_INSTRUCTIONS = """
-You enrich a concept for mathematical animation.
+def narrative_template() -> str:
+    return '''# Narrative Outline
 
-Return:
-- core equations in LaTeX
-- symbol definitions
-- interpretation
-- examples
-- typical values where helpful
-- common mistakes learners make
+## Opening Hook
 
-Use Manim-safe LaTeX strings.
-"""
+## Global Style
 
+## Scene Sequence
 
-VISUAL_DESIGNER_INSTRUCTIONS = """
-You design the visual treatment for an educational Manim animation segment.
+### Scene 1
+- concept:
+- goal:
+- equations:
+- beats:
+- visual directions:
+- transition in:
+- transition out:
+- duration:
 
-You are not writing code. You are deciding what the code should show.
-
-Return:
-- the elements to draw
-- the color system
-- the animation language
-- continuity-aware transitions
-- camera notes
-- duration
-- layout
-- global style notes
-
-Do not depend on external image assets.
-"""
+## Ending Summary
+'''
 
 
-NARRATIVE_COMPOSER_INSTRUCTIONS = """
-You turn a fully prepared knowledge tree into a scene-by-scene animation outline.
-
-The outline should:
-- move from foundations to target concept
-- retain mathematical rigor
-- stay visually coherent
-- be explicit enough that a code generator can implement it
-
-Return a structured outline, not prose paragraphs.
-"""
-
-
-CODE_GENERATOR_INSTRUCTIONS = """
-You are an expert Manim Community Edition engineer.
-
-Generate one complete Python file for the requested animation.
-
-Requirements:
-- use `from manim import *`
-- create a single scene class with the requested scene name
-- keep everything self-contained
-- prefer standard Manim primitives and animation constructs
-- preserve pedagogical flow and equation correctness
-- do not rely on external images, fonts, or local assets
-
-Before returning your final answer:
-1. call the Manim validator tool on your draft
-2. call the render complexity estimator
-3. fix any reported errors
-
-Return the final artifact only after the code is valid.
-"""
-
-
-def build_tree_summary(tree: KnowledgeNode) -> str:
-    lines: list[str] = []
-
-    def visit(node: KnowledgeNode, indent: int) -> None:
-        prefix = "  " * indent
-        suffix = " [foundation]" if node.is_foundation else ""
-        lines.append(f"{prefix}- {node.concept}{suffix}")
-        for child in node.prerequisites:
-            visit(child, indent + 1)
-
-    visit(tree, 0)
-    return "\n".join(lines)
-
-
-def build_narrative_brief(
-    analysis: ConceptAnalysis,
-    tree: KnowledgeNode,
-    narrative: NarrativeOutline,
-) -> str:
+def scene_stub(scene_name: str) -> str:
     return (
-        f"Core concept: {analysis.core_concept}\n"
-        f"Domain: {analysis.domain}\n"
-        f"Audience: {analysis.audience}\n"
-        f"Difficulty: {analysis.difficulty}\n"
-        f"Learning goal: {analysis.learning_goal}\n\n"
-        f"Knowledge tree:\n{build_tree_summary(tree)}\n\n"
-        f"Narrative outline JSON:\n{narrative.model_dump_json(indent=2)}"
+        "from manim import *\n\n\n"
+        f"class {scene_name}(Scene):\n"
+        "    def construct(self) -> None:\n"
+        "        title = Text(\"Replace with generated animation\")\n"
+        "        self.play(Write(title))\n"
+        "        self.wait(1)\n"
     )
+
+
+def build_workflow_brief(request: str, scene_name: str) -> str:
+    return f'''# HermesLearnsManim Workflow
+
+User request:
+{request}
+
+Scene name target:
+{scene_name}
+
+Hermes is the only agent harness for this workflow.
+The model provider is selected inside Hermes with `hermes setup` or `hermes model`.
+
+## Required steps
+
+1. Fill `analysis.json` with a precise teaching brief.
+2. Build `knowledge_tree.json` by recursively asking what must be understood before the target concept.
+3. Write `narrative.md` as a scene-by-scene teaching plan.
+4. Generate `scene.py` using only Manim primitives and self-contained assets.
+5. Validate code before render.
+6. Render only if the user asked for video output.
+
+## Rules
+
+- Keep the workflow provider-agnostic.
+- Do not introduce another agent SDK.
+- Use Hermes subagents only when they materially help and keep artifact ownership clear.
+- Save each artifact back through MCP tools so the run directory stays complete.
+'''
+
+
+def manifest_template(request: str, scene_name: str) -> dict:
+    return {
+        "request": request,
+        "scene_name": scene_name,
+        "status": {
+            "analysis": "pending",
+            "knowledge_tree": "pending",
+            "narrative": "pending",
+            "scene_code": "pending",
+            "validation": "pending",
+            "render": "not_requested",
+        },
+    }
+
+
+def pretty_json(payload: dict) -> str:
+    return json.dumps(payload, indent=2)
