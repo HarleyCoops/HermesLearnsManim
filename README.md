@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="assets/Hermeshero.jpg" alt="Hermes Learns Manim" width="100%">
+</p>
+
 # HermesLearnsManim
 
 `HermesLearnsManim` is a Hermes-first workspace for building Manim animations through reverse-knowledge-tree reasoning.
