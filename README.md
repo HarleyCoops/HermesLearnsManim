@@ -44,6 +44,9 @@ The root prompt catalog lives in [`PROMPTS.md`](PROMPTS.md). Each entry includes
 
 Quickstart links:
 
+- [Cinematic Cosmology](PROMPTS.md#cinematic-cosmology)
+- [Epic QED Journey](PROMPTS.md#epic-qed-journey)
+- [Brownian Motion to Black-Scholes](PROMPTS.md#brownian-motion-to-black-scholes)
 - [Geodesic Equation](PROMPTS.md#geodesic-equation)
 - [Whiskering Exchange Law](PROMPTS.md#whiskering-exchange-law)
 - [Klein Bottle and Mobius Strip](PROMPTS.md#klein-bottle-and-mobius-strip)

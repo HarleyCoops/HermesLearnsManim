@@ -5,6 +5,314 @@ These prompts were pulled from the old `Math-To-Manim` repo and kept here as jum
 They are included in full text form so you can paste them directly into Hermes.
 A few broken characters from older files were normalized for readability.
 
+## Cinematic Cosmology
+
+Source: `examples/cosmology/Claude37Cosmic.py`, `docs/AGENT_ARCHITECTURE.md`
+
+```text
+Create a gorgeous, cinematic Manim animation called "Cosmology: The Story of Our Universe".
+
+Goal:
+Build an awe-filled reverse-knowledge-tree style explanation of cosmology. Start from spacetime and observational clues, then expand outward into the history of the universe: expansion, redshift, the cosmic microwave background, and the Friedmann equation. The result should feel like a premium science documentary opening, not a dry classroom diagram.
+
+Visual style:
+- Use ThreeDScene.
+- Background should be deep black or near-black with subtle blue cosmic gradients.
+- Open with a dense star field with depth, twinkling, and slow parallax camera motion.
+- Use elegant glowing text, clean MathTex, and consistent color coding.
+- Favor deliberate camera moves, ambient rotation, and layered compositions over fast cuts.
+- Keep the aesthetic cinematic and cosmic: volumetric-feeling space, luminous equations, and careful transitions.
+
+Color language:
+- spacetime / geometry: blue and cyan
+- matter / density: orange
+- curvature: purple
+- radiation / light: gold
+- observational evidence / labels: white or pale yellow
+
+Narrative requirements:
+1. Opening cosmic vista.
+   - Fade in a star field representing the observable universe.
+   - Reveal the title "Cosmology: The Story of Our Universe" in large glowing text.
+   - Make the first 5-10 seconds feel expansive and prestigious.
+
+2. Spacetime as the stage.
+   - Introduce a 3D spacetime coordinate system or wireframe.
+   - Show the Minkowski metric:
+     ds^2 = -c^2 dt^2 + dx^2 + dy^2 + dz^2
+   - Use color coding to distinguish temporal and spatial parts.
+   - Briefly establish that cosmology is built on the geometry of spacetime.
+
+3. Light, causality, and observation.
+   - Show a light cone or expanding spherical light front.
+   - Connect the idea that astronomy is seeing light from the past.
+   - Make the viewer feel that looking farther away means looking farther back in time.
+
+4. Cosmic expansion.
+   - Transition from static stars to galaxies embedded in an expanding grid or fabric.
+   - Show galaxies separating as the scale factor grows.
+   - Include Hubble's Law:
+     v = H_0 d
+   - Make it visually clear that space itself is stretching, not just galaxies flying through empty space.
+
+5. Redshift as evidence.
+   - Animate wavelengths stretching as the universe expands.
+   - Include a redshift relation such as:
+     1 + z = lambda_observed / lambda_emitted
+   - Link the stretched wavelength directly to cosmic expansion.
+   - Use color changes to show light moving toward the red end of the spectrum.
+
+6. The early universe and the CMB.
+   - Rewind from the large modern universe into a hot dense early state.
+   - Show the universe becoming opaque plasma, then transitioning to transparency.
+   - Introduce the cosmic microwave background as an afterglow shell or sky map.
+   - Suggest tiny primordial fluctuations that later seed structure formation.
+
+7. The Friedmann equation as the governing law.
+   - Present the Friedmann equation prominently:
+     ((dot a)/a)^2 = (8 pi G / 3) rho - (k c^2 / a^2)
+   - Optionally include a simplified version first, then the fuller form.
+   - Color code:
+     - dot a / a in cyan
+     - rho in orange
+     - k in purple
+   - Explain visually that expansion rate depends on energy density and curvature.
+
+8. Timeline of cosmic history.
+   - Show a clean visual progression:
+     Big Bang -> rapid expansion -> plasma era -> recombination / CMB -> first stars -> galaxies -> large-scale structure -> present universe
+   - Use icons, labels, or a glowing timeline in space.
+   - Keep the pacing smooth and cumulative.
+
+9. Modern cosmic composition.
+   - Briefly visualize ordinary matter, dark matter, and dark energy as distinct components.
+   - This should be elegant and suggestive, not overly cluttered.
+   - If helpful, show a pie chart transforming into large-scale structure and accelerated expansion motifs.
+
+10. Ending shot.
+   - Return to a majestic wide cosmic view.
+   - Re-show the Friedmann equation or the title in a refined final composition.
+   - End with a sense that cosmology unifies geometry, light, and cosmic history.
+
+Technical guidance:
+- Use raw string MathTex for all LaTeX.
+- Prefer 3D camera work and layered depth over flat slides.
+- Keep text readable against the dark background.
+- Use smooth fades, transforms, and scale transitions.
+- Make the animation long enough to feel like a journey, not a quick demo.
+
+Deliverable:
+Generate complete, runnable Manim Community Edition code for a cinematic cosmology scene or scene sequence that combines observational evidence, spacetime geometry, and universe evolution into one coherent narrative.
+```
+
+## Epic QED Journey
+
+Source: `examples/misc/ULTRAQED.py`, `examples/cosmology/Claude37Cosmic.py`
+
+```text
+Create an epic cinematic 3D Manim animation explaining Quantum Electrodynamics as a journey from spacetime and classical electromagnetism to gauge symmetry, particle interactions, and the running coupling.
+
+Core objective:
+Make QED feel visually inevitable. The viewer should start with light and spacetime, then watch Maxwell theory compress into relativistic form, then see the QED Lagrangian emerge as the compact law governing electrons, photons, and their interactions.
+
+Visual style:
+- Use ThreeDScene with a deep black cosmic background.
+- Open with a star field and premium title treatment.
+- Use glow, contrast, and restrained neon colors rather than cartoon colors.
+- Keep the visuals elegant, high-end, and physics-forward.
+- Camera should drift, orbit, and reframe smoothly to give a sense of scale.
+
+Color language:
+- photons / electromagnetic field: gold
+- fermions / electrons: orange or blue-orange contrast
+- gauge structure / covariant derivative: green
+- spacetime / geometry: blue and cyan
+- symmetry highlights: violet
+
+Required structure:
+1. Cosmic opening.
+   - Begin with a star field and a strong title, such as:
+     "Quantum Electrodynamics"
+     "A Journey into the Electromagnetic Interaction"
+   - The opening should feel large and cinematic.
+
+2. Spacetime arena.
+   - Build a 3D spacetime grid or wireframe.
+   - Show a future and past light cone.
+   - Display the Minkowski metric:
+     ds^2 = -c^2 dt^2 + dx^2 + dy^2 + dz^2
+   - Use color coding to distinguish time from space.
+
+3. Electromagnetic wave emergence.
+   - Zoom into the spacetime arena and show orthogonal E and B field oscillations.
+   - Clearly indicate propagation direction.
+   - Make the wave feel alive and physical, not just symbolic.
+
+4. Maxwell equations to relativistic compression.
+   - Present the classical Maxwell equations first:
+     div E = rho / epsilon_0
+     div B = 0
+     curl E = - dB/dt
+     curl B = mu_0 J + mu_0 epsilon_0 dE/dt
+   - Then transform them into a compact relativistic form:
+     partial_mu F^{mu nu} = mu_0 J^nu
+   - Emphasize the conceptual payoff: four equations condense into elegant spacetime structure.
+
+5. QED Lagrangian reveal.
+   - Make this the centerpiece.
+   - Display:
+     L_QED = psi_bar ( i gamma^mu D_mu - m ) psi - 1/4 F_{mu nu} F^{mu nu}
+   - Put it on a refined dark panel or luminous plane.
+   - Color code the fermion term, gauge-field term, and interaction structure.
+   - Explicitly highlight the covariant derivative:
+     D_mu = partial_mu + i e A_mu
+   - Explain visually that this is where interaction enters.
+
+6. Gauge symmetry.
+   - Show the local U(1) gauge transformation:
+     psi(x) -> e^{i alpha(x)} psi(x)
+     A_mu(x) -> A_mu(x) - (1/e) partial_mu alpha(x)
+   - Make the animation communicate that the Lagrangian remains unchanged.
+   - Use circular motion, phase rotation, or local phase markers to make symmetry feel dynamic.
+
+7. Feynman interaction layer.
+   - Introduce multiple Feynman diagrams, not just one.
+   - Include at least:
+     - electron-electron scattering
+     - pair annihilation
+     - pair creation
+   - Label the electron, positron, and photon lines clearly.
+   - The diagrams should emerge as visual consequences of the interaction term, not as disconnected clip art.
+
+8. Fine structure constant.
+   - Present:
+     alpha = e^2 / (4 pi epsilon_0 hbar c) approximately 1/137
+   - Explain that this is the coupling strength of electromagnetic interaction.
+   - Add a few concise interpretations:
+     - dimensionless constant
+     - controls interaction strength
+     - appears in atomic fine structure
+
+9. Running coupling and vacuum polarization.
+   - Show a graph of alpha(Q) versus energy scale.
+   - The curve should rise gently with energy.
+   - Add labeled scales such as m_e, M_W, M_Z, or Planck scale if useful.
+   - Explain visually that vacuum polarization from virtual pairs modifies the effective coupling.
+   - If you include caption text, keep it concise and elegant.
+
+10. Final synthesis.
+   - Build a final collage or unified composition containing:
+     - spacetime / light cone
+     - electromagnetic wave
+     - QED Lagrangian
+     - Feynman diagram motifs
+     - running coupling graph
+   - End with a strong concluding title such as:
+     "QED: Unifying Light and Matter Through Gauge Theory"
+
+Technical requirements:
+- Use raw string MathTex for equations.
+- Keep the visual pacing premium and deliberate.
+- Avoid clutter even though the subject is dense.
+- Prefer clean transformations that show one idea becoming the next.
+- Make the code runnable in Manim Community Edition.
+
+Deliverable:
+Generate complete, polished Manim code for a cinematic multi-part QED animation that moves from classical electromagnetism to gauge theory and quantum interactions with strong visual continuity.
+```
+
+## Brownian Motion to Black-Scholes
+
+Source: `examples/finance/optionskew.py`, `Gemini3/finance_pipeline_output.json`
+
+```text
+Create a cinematic 3D Manim animation that connects randomness, diffusion, and finance through the chain:
+
+standard deviation -> Brownian motion -> heat equation -> Black-Scholes PDE -> implied volatility surface
+
+Goal:
+Make quantitative finance feel visually deep and mathematically coherent. The animation should not look like a corporate dashboard. It should feel like a cosmic mathematical journey from microscopic randomness to a full volatility surface.
+
+Visual style:
+- Use ThreeDScene.
+- Start with a dark celestial background and a field of stars or luminous particles.
+- Use elegant camera motion and premium color grading.
+- Let the animation move from abstract stochastic motion into structured geometry and surfaces.
+- Keep the aesthetic cinematic and mathematically serious.
+
+Color language:
+- randomness / particles: white and pale blue
+- volatility / sigma objects: yellow
+- diffusion / heat flow: blue-green
+- pricing surface: teal to blue
+- implied volatility skew / stress regions: yellow to red
+
+Required sequence:
+1. Celestial opening.
+   - Begin with a star field or particle field.
+   - Reveal a title such as:
+     "Brownian Motion to Black-Scholes"
+     or
+     "A Cosmic Journey Through Financial Mathematics"
+   - The opening should feel atmospheric rather than business-like.
+
+2. Variability and standard deviation.
+   - Transform the star field into a point cloud or spherical cloud around a center.
+   - Display:
+     sigma = sqrt((1/N) sum_{i=1}^N (x_i - mu)^2)
+   - Show the mean mu at the center and visually indicate dispersion around it.
+   - Make this feel like the first organizing principle extracted from randomness.
+
+3. Brownian motion.
+   - Morph the point cloud into multiple 3D random paths.
+   - Display a stochastic-process expression such as:
+     S_t = S_0 exp((r - 1/2 sigma^2)t + sigma W_t)
+   - Emphasize that the motion is pathwise, noisy, and cumulative.
+   - Highlight endpoints or trajectories so the viewer feels the spread of possible outcomes.
+
+4. Diffusion / heat equation bridge.
+   - Let the random paths melt or blend into a smooth evolving surface.
+   - Display the diffusion equation:
+     partial f / partial t = (1/2) sigma^2 partial^2 f / partial x^2
+   - Make the visual transformation communicate that many random microscopic paths aggregate into a smooth PDE-level description.
+
+5. Black-Scholes emergence.
+   - Introduce 3D axes for asset price, time, and option value.
+   - Display the Black-Scholes PDE:
+     partial C / partial t + (1/2) sigma^2 S^2 partial^2 C / partial S^2 + r S partial C / partial S - r C = 0
+   - Grow a pricing surface from the diffusion-like geometry.
+   - Make it clear that the pricing PDE is the finance analogue of diffusion under the right change of interpretation.
+
+6. Implied volatility surface.
+   - Transform the pricing surface into an implied volatility surface:
+     sigma(K, T)
+   - Use a shape that suggests skew or smile rather than a flat plane.
+   - Label axes clearly and orbit the camera around the surface.
+   - Color the surface by value so the geometry feels informative and alive.
+
+7. Finale: convergence of concepts.
+   - Bring back ghosted traces of the earlier stages:
+     - dispersion cloud
+     - Brownian paths
+     - diffusion surface
+   - Compose them around the final volatility surface.
+   - End with a concluding line that connects probability, PDEs, and pricing.
+
+Conceptual requirements:
+- The story must clearly communicate why the sequence is meaningful, not just visually flashy.
+- Show that volatility is first statistical dispersion, then stochastic forcing, then diffusion, then derivative pricing, then an observed market surface.
+- Keep the tone educational but sophisticated.
+
+Technical guidance:
+- Use raw string MathTex.
+- Keep equations readable and stable while the 3D camera moves.
+- Prefer smooth transformations and layered staging over abrupt cuts.
+- Make the final implied vol surface visually striking enough to serve as a thumbnail moment.
+
+Deliverable:
+Generate complete runnable Manim Community Edition code for a cinematic finance animation that unifies Brownian motion, diffusion, Black-Scholes, and volatility skew in one coherent visual narrative.
+```
+
 ## Geodesic Equation
 
 Source: `Gemini3/geodesic_prompt.txt`
