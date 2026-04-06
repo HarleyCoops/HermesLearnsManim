@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/Hermeshero.jpg" alt="Hermes Learns Manim" width="100%">
+  <img src="assets/Hero2.png" alt="Hermes Learns Manim" width="100%">
 </p>
 
 # HermesLearnsManim
