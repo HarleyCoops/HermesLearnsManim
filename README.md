@@ -2,6 +2,9 @@
   <img src="assets/Hero2.png" alt="Hermes Learns Manim" width="100%">
 </p>
 <p align="center">
+  <img src="assets/ArtemisIiLunarFlyby.gif" alt="Artemis II lunar flyby — cinematic 3D Manim render driven by the news-topic Hermes skill" width="100%">
+</p>
+<p align="center">
   <img src="assets/GeodesicEquation.gif" alt="Geodesic equation — sample Manim render" width="100%">
 </p>
 <p align="center">

@@ -4,6 +4,14 @@ This workflow works best when Hermes keeps one main coordinator and only delegat
 
 ## Suggested roles
 
+### news-researcher (optional)
+
+Responsibility:
+
+- use the web to gather verified facts for current-events topics
+- write `research.md` with dates, numbers, crew/org names, and URL citations
+- flag any claim that is not yet confirmed so downstream subagents avoid it
+
 ### concept-analyst
 
 Responsibility:
